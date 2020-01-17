@@ -43,13 +43,30 @@ mixin _$AuthStore on _AuthStore, Store {
     }, _$pictureAtom, name: '${_$pictureAtom.name}_set');
   }
 
+  final _$tokenAtom = Atom(name: '_AuthStore.token');
+
+  @override
+  String get token {
+    _$tokenAtom.context.enforceReadPolicy(_$tokenAtom);
+    _$tokenAtom.reportObserved();
+    return super.token;
+  }
+
+  @override
+  set token(String value) {
+    _$tokenAtom.context.conditionallyRunInAction(() {
+      super.token = value;
+      _$tokenAtom.reportChanged();
+    }, _$tokenAtom, name: '${_$tokenAtom.name}_set');
+  }
+
   final _$_AuthStoreActionController = ActionController(name: '_AuthStore');
 
   @override
-  void setUser(String namePar, String picturePar) {
+  void setUser(String namePar, String picturePar, String tokenPar) {
     final _$actionInfo = _$_AuthStoreActionController.startAction();
     try {
-      return super.setUser(namePar, picturePar);
+      return super.setUser(namePar, picturePar, tokenPar);
     } finally {
       _$_AuthStoreActionController.endAction(_$actionInfo);
     }

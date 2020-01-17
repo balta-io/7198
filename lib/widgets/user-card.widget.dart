@@ -37,6 +37,12 @@ class UserCard extends StatelessWidget {
               color: Colors.white,
             ),
           ),
+          Text(
+            store.token,
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          ),
           Container(
             height: 20,
             child: FlatButton(
