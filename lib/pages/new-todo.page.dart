@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
-import 'package:todo/blocs/todo.bloc.dart';
+import 'package:todo/controllers/todo.controller.dart';
 import 'package:todo/models/todo-item.model.dart';
 import 'package:todo/stores/todo.store.dart';
 import 'package:todo/widgets/user-card.widget.dart';
@@ -12,7 +12,7 @@ class NewTodoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final store = Provider.of<TodoStore>(context);
-    final bloc = new TodoBloc(store);
+    final controller = new TodoController(store);
 
     return Scaffold(
       body: Column(
@@ -34,7 +34,7 @@ class NewTodoPage extends StatelessWidget {
                         done: false,
                         date: DateTime.now(),
                       );
-                      bloc.add(todo).then((_) {
+                      controller.add(todo).then((_) {
                         Navigator.push(
                           context,
                           MaterialPageRoute(

@@ -2,11 +2,11 @@ import 'package:todo/models/todo-item.model.dart';
 import 'package:todo/repositories/todo.repository.dart';
 import 'package:todo/stores/todo.store.dart';
 
-class TodoBloc {
+class TodoController {
   TodoStore _store;
   TodoRepository _repository;
 
-  TodoBloc(TodoStore store) {
+  TodoController(TodoStore store) {
     _store = store;
     _repository = new TodoRepository();
   }

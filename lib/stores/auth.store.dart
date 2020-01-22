@@ -5,13 +5,16 @@ class AuthStore = _AuthStore with _$AuthStore;
 
 abstract class _AuthStore with Store {
   @observable
+  bool busy = false;
+
+  @observable
   String name = "";
 
   @observable
   String picture = "https://placehold.it/80";
 
   @observable
-  String token = "https://placehold.it/80";
+  String token = "";
 
   @action
   void setUser(String namePar, String picturePar, String tokenPar) {
@@ -24,5 +27,6 @@ abstract class _AuthStore with Store {
   void clearUser() {
     name = "";
     picture = "https://placehold.it/80";
+    token = "";
   }
 }

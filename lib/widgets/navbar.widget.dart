@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
-import 'package:todo/blocs/todo.bloc.dart';
+import 'package:todo/controllers/todo.controller.dart';
 import 'package:todo/stores/todo.store.dart';
 
 class Navbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final store = Provider.of<TodoStore>(context);
-    final bloc = new TodoBloc(store);
+    final controller = new TodoController(store);
 
     return Container(
       width: double.infinity,
@@ -29,7 +29,7 @@ class Navbar extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                bloc.changeSelection("today");
+                controller.changeSelection("today");
               },
             ),
           ),
@@ -45,7 +45,7 @@ class Navbar extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                bloc.changeSelection("tomorrow");
+                controller.changeSelection("tomorrow");
               },
             ),
           ),
@@ -61,7 +61,7 @@ class Navbar extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                bloc.changeSelection("all");
+                controller.changeSelection("all");
               },
             ),
           ),

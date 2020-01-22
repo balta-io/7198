@@ -9,6 +9,23 @@ part of 'auth.store.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$AuthStore on _AuthStore, Store {
+  final _$busyAtom = Atom(name: '_AuthStore.busy');
+
+  @override
+  bool get busy {
+    _$busyAtom.context.enforceReadPolicy(_$busyAtom);
+    _$busyAtom.reportObserved();
+    return super.busy;
+  }
+
+  @override
+  set busy(bool value) {
+    _$busyAtom.context.conditionallyRunInAction(() {
+      super.busy = value;
+      _$busyAtom.reportChanged();
+    }, _$busyAtom, name: '${_$busyAtom.name}_set');
+  }
+
   final _$nameAtom = Atom(name: '_AuthStore.name');
 
   @override
