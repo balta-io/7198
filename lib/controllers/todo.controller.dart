@@ -11,14 +11,14 @@ class TodoController {
     _repository = new TodoRepository();
   }
 
-  void changeSelection(String selection) {
+  void changeSelection(String selection, String token) {
     switch (selection) {
       case "today":
         {
           _store.busy = true;
           _store.clearTodos();
           _store.changeSelected("today");
-          _repository.getTodayTodos().then((data) {
+          _repository.getTodayTodos(token).then((data) {
             _store.setTodos(data);
             _store.busy = false;
           });
@@ -30,7 +30,7 @@ class TodoController {
           _store.busy = true;
           _store.clearTodos();
           _store.changeSelected("tomorrow");
-          _repository.getTomorrowTodos().then((data) {
+          _repository.getTomorrowTodos(token).then((data) {
             _store.setTodos(data);
             _store.busy = false;
           });
@@ -42,7 +42,7 @@ class TodoController {
           _store.busy = true;
           _store.clearTodos();
           _store.changeSelected("all");
-          _repository.getAll().then((data) {
+          _repository.getAll(token).then((data) {
             _store.setTodos(data);
             _store.busy = false;
           });
@@ -55,6 +55,6 @@ class TodoController {
     _store.busy = true;
     await _repository.add(item, token);
     _store.busy = false;
-    changeSelection(_store.selected);
+    changeSelection(_store.selected, token);
   }
 }

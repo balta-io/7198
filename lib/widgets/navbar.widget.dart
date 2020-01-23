@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 import 'package:todo/controllers/todo.controller.dart';
+import 'package:todo/stores/auth.store.dart';
 import 'package:todo/stores/todo.store.dart';
 
 class Navbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final store = Provider.of<TodoStore>(context);
+    final authStore = Provider.of<AuthStore>(context);
     final controller = new TodoController(store);
 
     return Container(
@@ -29,7 +31,10 @@ class Navbar extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                controller.changeSelection("today");
+                controller.changeSelection(
+                  "today",
+                  authStore.token,
+                );
               },
             ),
           ),
@@ -45,7 +50,10 @@ class Navbar extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                controller.changeSelection("tomorrow");
+                controller.changeSelection(
+                  "tomorrow",
+                  authStore.token,
+                );
               },
             ),
           ),
@@ -61,7 +69,10 @@ class Navbar extends StatelessWidget {
                 ),
               ),
               onPressed: () {
-                controller.changeSelection("all");
+                controller.changeSelection(
+                  "all",
+                  authStore.token,
+                );
               },
             ),
           ),

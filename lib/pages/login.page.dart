@@ -90,7 +90,10 @@ class LoginPage extends StatelessWidget {
                             authStore.busy = true;
                             _handleSignIn().then((FirebaseUser user) {
                               authStore.busy = false;
-                              controller.changeSelection("today");
+                              controller.changeSelection(
+                                "today",
+                                authStore.token,
+                              );
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
