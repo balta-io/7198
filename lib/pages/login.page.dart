@@ -33,7 +33,9 @@ class LoginPage extends StatelessWidget {
       final FirebaseUser user =
           (await _auth.signInWithCredential(credential)).user;
 
-      authStore.setUser(user.displayName, user.photoUrl, googleAuth.idToken);
+      var token = await user.getIdToken();
+
+      authStore.setUser(user.displayName, user.photoUrl, token.token);
       return user;
     }
 

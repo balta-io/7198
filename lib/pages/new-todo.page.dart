@@ -3,6 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:provider/provider.dart';
 import 'package:todo/controllers/todo.controller.dart';
 import 'package:todo/models/todo-item.model.dart';
+import 'package:todo/stores/auth.store.dart';
 import 'package:todo/stores/todo.store.dart';
 import 'package:todo/widgets/user-card.widget.dart';
 
@@ -12,6 +13,7 @@ class NewTodoPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final store = Provider.of<TodoStore>(context);
+    final authStore = Provider.of<AuthStore>(context);
     final controller = new TodoController(store);
 
     return Scaffold(
@@ -34,7 +36,7 @@ class NewTodoPage extends StatelessWidget {
                         done: false,
                         date: DateTime.now(),
                       );
-                      controller.add(todo).then((_) {
+                      controller.add(todo, authStore.token).then((_) {
                         Navigator.push(
                           context,
                           MaterialPageRoute(

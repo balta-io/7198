@@ -51,9 +51,9 @@ class TodoController {
     }
   }
 
-  Future add(TodoItem item) async {
+  Future add(TodoItem item, String token) async {
     _store.busy = true;
-    await _repository.add(item);
+    await _repository.add(item, token);
     _store.busy = false;
     changeSelection(_store.selected);
   }

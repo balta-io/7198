@@ -10,7 +10,7 @@ class TodoItem {
     id = json['id'];
     title = json['title'];
     done = json['done'];
-    date = json['date'];
+    date = DateTime.parse(json['date']);
   }
 
   Map<String, dynamic> toJson() {
@@ -18,7 +18,7 @@ class TodoItem {
     data['id'] = this.id;
     data['title'] = this.title;
     data['done'] = this.done;
-    data['date'] = this.date;
+    data['date'] = this.date.toString().substring(0, 10);
     return data;
   }
 }

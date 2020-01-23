@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:dio/dio.dart';
 import 'package:todo/models/todo-item.model.dart';
 
 class TodoRepository {
@@ -51,8 +54,20 @@ class TodoRepository {
     return todos;
   }
 
-  Future<TodoItem> add(TodoItem item) async {
-    await Future.delayed(const Duration(milliseconds: 1500), () {});
-    return item;
+  Future<TodoItem> add(TodoItem item, String token) async {
+    var url = "https://10.0.2.2:5001/v1/todos";
+
+    try {
+      Response response = await Dio().post(
+        url,
+        data: item,
+        options: Options(
+          headers: {HttpHeaders.authorizationHeader: 'Bearer $token'},
+        ),
+      );
+      return TodoItem.fromJson(response.data["data"]);
+    } catch (e) {
+      return null;
+    }
   }
 }
