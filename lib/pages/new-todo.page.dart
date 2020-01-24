@@ -15,57 +15,117 @@ class NewTodoPage extends StatelessWidget {
     final store = Provider.of<TodoStore>(context);
     final authStore = Provider.of<AuthStore>(context);
     final controller = new TodoController(store);
+    final _formKey = GlobalKey<FormState>();
+
+    String task = "";
+    DateTime date = DateTime.now();
+
+    Future<Null> _selectDate(BuildContext context) async {
+      final DateTime picked = await showDatePicker(
+        context: context,
+        initialDate: date,
+        firstDate: DateTime(2000, 1),
+        lastDate: DateTime(2040),
+      );
+      if (picked != null && picked != date) {
+        date = picked;
+      }
+    }
 
     return Scaffold(
-      body: Column(
-        children: <Widget>[
-          UserCard(),
-          Observer(
-            builder: (_) => store.busy
-                ? Container(
-                    child: Center(
-                      child: CircularProgressIndicator(),
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            UserCard(),
+            Padding(
+              padding: const EdgeInsets.all(40.0),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: <Widget>[
+                    TextFormField(
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                        labelText: "Tarefa",
+                        labelStyle: TextStyle(
+                          color: Theme.of(context).primaryColor,
+                          fontWeight: FontWeight.w400,
+                          fontSize: 16,
+                        ),
+                      ),
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Título Inválido';
+                        }
+                        return null;
+                      },
+                      onSaved: (val) {
+                        task = val;
+                      },
                     ),
-                  )
-                : FlatButton(
-                    child: Text("Adicionar"),
-                    onPressed: () {
-                      var todo = new TodoItem(
-                        id: "132",
-                        title: "Ir ao supermercado",
-                        done: false,
-                        date: DateTime.now(),
-                      );
-                      controller.add(todo, authStore.token).then((_) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => HomePage(),
-                          ),
-                        );
-                      });
-                    },
-                  ),
-          ),
-          FlatButton(
-            child: Text("Voltar"),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => HomePage(),
+                    FlatButton(
+                      child: Text("Data"),
+                      onPressed: () {
+                        _selectDate(context);
+                      },
+                    )
+                  ],
                 ),
-              );
-            },
-          ),
-          Expanded(
-            child: Container(
-              child: Center(
-                child: Text("Hello"),
               ),
             ),
-          )
-        ],
+            Observer(
+              builder: (_) => store.busy
+                  ? Container(
+                      child: Center(
+                        child: CircularProgressIndicator(),
+                      ),
+                    )
+                  : FlatButton(
+                      child: Text(
+                        "Adicionar",
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                      color: Theme.of(context).primaryColor,
+                      onPressed: () {
+                        if (!_formKey.currentState.validate()) {
+                          return;
+                        }
+
+                        _formKey.currentState.save();
+                        var todo = new TodoItem(
+                          title: task,
+                          date: date,
+                        );
+                        controller.add(todo, authStore.token).then((_) {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => HomePage(),
+                            ),
+                          );
+                        });
+                      },
+                    ),
+            ),
+            FlatButton(
+              child: Text("Cancelar"),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => HomePage(),
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
