@@ -1,0 +1,56 @@
+{
+  "project_info": {
+    "project_number": "381634863399",
+    "firebase_url": "https://todos-daba8.firebaseio.com",
+    "project_id": "todos-daba8",
+    "storage_bucket": "todos-daba8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:381634863399:android:e005304204a46c71368902",
+        "android_client_info": {
+          "package_name": "io.balta.todos"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "381634863399-7sufvlc9i47reh362t4u9e3reqrue8gg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.balta.todos",
+            "certificate_hash": "c10eb463730865c3e1cddb8058a0193ddae3e991"
+          }
+        },
+        {
+          "client_id": "381634863399-i5v211la89t3819e59cu57d0drq7hmg9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDO8tCXrUHS9NeM4q_Fxt0oOjroXyZoWXo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "381634863399-i5v211la89t3819e59cu57d0drq7hmg9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "381634863399-1po8pkjom86r6hhfvg4l4bb2mkun6vlr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "io.balta.todos",
+                "app_store_id": "1499579255"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
